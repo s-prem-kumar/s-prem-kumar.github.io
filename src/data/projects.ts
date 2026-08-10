@@ -162,21 +162,11 @@ export const projects: Project[] = [
       "OWASP ZAP baseline and authenticated security scans.",
     ],
 
-    /* ⚠️ Aspirational until a demo actually exists — this documents the plan,
-     * and the limitations are stated openly per the free-tier rule. */
-    deployment: {
-      frontend: "Vercel (Hobby) — planned",
-      backend: "Render (free web service) — planned",
-      database: "Neon (free Postgres) — planned",
-      storage: "Render disk or Supabase Storage — planned",
-      limitations: [
-        "Nothing is deployed yet. The rows above are the intended free-tier target, not a description of something running.",
-        "OCR is the real blocker on free hosting: tesseract.js runs as WASM and rasterising a scanned page is memory-hungry, which sits badly inside a 512 MB free instance. Text-based statements parse fine; scanned ones would likely need a paid tier.",
-        "A free Render web service sleeps after ~15 minutes idle, so the first request can take ~50 seconds while the instance wakes.",
-        "Free Render instances have ephemeral disks — uploaded PDFs would not survive a restart without object storage.",
-        "Free Postgres tiers cap storage and may autosuspend, so a public demo database would need periodic reset regardless.",
-      ],
-    },
+    /* No `deployment` field, so the case study renders no Deployment table and
+     * no free-tier limitations list. It previously described a hosting plan
+     * that doesn't exist yet, which read as a list of things that hadn't been
+     * done. Add the field back once CashPilot is genuinely deployed somewhere,
+     * and state the real limitations of wherever that turns out to be. */
   },
 
   /* ======================================================================== */

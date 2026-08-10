@@ -42,7 +42,8 @@ export function Footer() {
             © {year} {profile.name}. All rights reserved.
           </p>
           <p>
-            Built with Next.js, TypeScript and Tailwind CSS. Deployed on Vercel.
+            Built with Next.js, TypeScript and Tailwind CSS. Deployed on GitHub
+            Pages.
           </p>
         </div>
       </Container>
