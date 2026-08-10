@@ -24,7 +24,7 @@ import type { Project } from "@/types/portfolio";
  * ---------------------------------------------------------------------------
  *
  * 1. `github` is omitted on every project below because none of these repos
- *    are public on github.com/premkumar28504-boop yet. Push each project,
+ *    are public on github.com/s-prem-kumar yet. Push each project,
  *    then add its `github` URL here.
  *
  * 2. The `technologies` lists were assembled from your resume's skills section
@@ -91,7 +91,7 @@ export const projects: Project[] = [
       "One-command local setup with Docker Compose — Postgres, API and frontend",
     ],
 
-    github: "https://github.com/premkumar28504-boop/cashpilot-",
+    github: "https://github.com/s-prem-kumar/cashpilot-",
 
     /* 🚀 Try Demo — a static, client-side replica that ships with this
      * portfolio. See src/demo/cashpilot/. No backend, no database, no real
@@ -518,7 +518,7 @@ export const projects: Project[] = [
  *     "Expense and income tracking",
  *   ],
  *
- *   github: "https://github.com/premkumar28504-boop/cashpilot",
+ *   github: "https://github.com/s-prem-kumar/cashpilot",
  *   liveDemo: "https://cashpilot-demo.vercel.app",
  *   demoAvailable: true,                     // 🚀 button needs BOTH this and liveDemo
  *

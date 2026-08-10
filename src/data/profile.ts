@@ -45,7 +45,7 @@ export const profile: Profile = {
   //
   // Drives canonical URLs, Open Graph tags, the sitemap and the JSON-LD.
   siteUrl:
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://premkumar28504-boop.github.io",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://s-prem-kumar.github.io",
 
   // Flip to false to hide the "Open to opportunities" badge in the hero.
   openToWork: true,

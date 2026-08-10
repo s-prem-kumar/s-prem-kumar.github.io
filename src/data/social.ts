@@ -15,8 +15,8 @@ export const social: SocialLink[] = [
   {
     platform: "github",
     label: "GitHub",
-    url: "https://github.com/premkumar28504-boop",
-    handle: "@premkumar28504-boop",
+    url: "https://github.com/s-prem-kumar",
+    handle: "@s-prem-kumar",
   },
   // {
   //   platform: "linkedin",
