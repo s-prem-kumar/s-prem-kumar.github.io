@@ -1,8 +1,9 @@
 # Portfolio — Prem Kumar Selvakumar
 
 A personal developer portfolio built to run on free-tier infrastructure only:
-Next.js on Vercel's free plan, a `*.vercel.app` domain, no database, no CMS,
-no paid APIs. Target cost: **₹0/month**.
+Next.js exported to static files and served from GitHub Pages on a free
+`*.github.io` domain. No server, no database, no CMS, no paid APIs.
+Target cost: **₹0/month**.
 
 It's content-driven. Every project, skill, role and certificate lives in
 `src/data/` as typed data. The UI reads that data and renders itself — adding a
@@ -25,7 +26,7 @@ component.
 10. [Updating the résumé](#10-updating-the-résumé)
 11. [Adding project screenshots](#11-adding-project-screenshots)
 12. [Adding live demo links](#12-adding-live-demo-links)
-13. [Deploying the portfolio to Vercel](#13-deploying-the-portfolio-to-vercel)
+13. [Deploying the portfolio to GitHub Pages](#13-deploying-the-portfolio-to-github-pages)
 14. [Deploying the individual projects](#14-deploying-the-individual-projects)
 15. [How demo credentials work](#15-how-demo-credentials-work)
 16. [Free-tier limitations](#16-free-tier-limitations)
@@ -81,7 +82,7 @@ work at request time, which is what keeps it comfortably inside the free tier.
 | Styling    | Tailwind CSS v4                            |
 | Icons      | Hand-written inline SVG (no icon package)  |
 | OG image   | `next/og` (ships with Next.js)             |
-| Hosting    | Vercel (Hobby / free)                      |
+| Hosting    | GitHub Pages (static export)               |
 
 **Runtime dependencies: `next`, `react`, `react-dom`. That's it.** No animation
 library, no icon library, no UI kit, no analytics. Scroll reveals use the
@@ -360,30 +361,55 @@ mean the thing is genuinely reachable right now.
 
 ---
 
-## 13. Deploying the portfolio to Vercel
+## 13. Deploying the portfolio to GitHub Pages
 
 ```text
-Local  →  git push  →  GitHub  →  Vercel  →  yourname.vercel.app
+Local  →  git push  →  GitHub Actions  →  GitHub Pages
+                                          s-prem-kumar.github.io
 ```
 
-1. Push this repo to GitHub.
-2. On [vercel.com](https://vercel.com), **Add New → Project**, import the repo.
-3. Framework preset: **Next.js**. Everything else: defaults. Deploy.
-4. Vercel gives you `https://<project>.vercel.app`. That's your domain — a
-   custom one is optional and can be added any time later.
+The site is a **static export**: `next build` writes every route to `out/` as
+plain HTML, and Pages serves those files. No server runs anywhere.
 
-**One thing to set afterwards.** In Vercel → Settings → Environment Variables,
-add:
+### The URL is your username
 
-```text
-NEXT_PUBLIC_SITE_URL = https://your-actual-url.vercel.app
-```
+A GitHub Pages *user site* is served from `https://<username>.github.io`, and
+that only works when a repository is named **exactly** `<username>.github.io`.
+The URL is not a setting — it follows the account name. Rename the account and
+the site address changes with it.
 
-That value drives canonical URLs, Open Graph tags, the sitemap and the JSON-LD.
-Without it they fall back to the placeholder in `src/data/profile.ts`, and
-search engines will index the wrong URL. Redeploy after adding it.
+### One-time setup
 
-Every push to `main` redeploys automatically. Pull requests get preview URLs.
+1. Name the repository `<your-username>.github.io`.
+2. **Settings → Pages → Build and deployment → Source → GitHub Actions.**
+
+> ⚠️ Step 2 is the one people miss. The default is **"Deploy from a branch"**,
+> which ignores the workflow entirely and runs Jekyll over the repository
+> instead — the result is your `README.md` rendered as the homepage. If you see
+> this README when you visit the site, that setting is wrong.
+
+After that, `.github/workflows/deploy.yml` handles everything on every push to
+`main`: install, lint, build, publish. Watch it in the **Actions** tab; the
+first run takes about two minutes.
+
+### What makes the export work
+
+| Piece | Why it's needed |
+| ----- | --------------- |
+| `output: "export"` in `next.config.ts` | Writes the site to `out/` instead of expecting a server |
+| `trailingSlash: true` | Emits `/projects/cashpilot/index.html`, which Pages resolves from a bare directory URL |
+| `images: { unoptimized: true }` | On-demand image optimisation needs a server. **Compress images before committing** |
+| `public/.nojekyll` | Without it Pages runs Jekyll, which ignores the `_next` folder — you'd get an unstyled page |
+| `export const dynamic = "force-static"` | On `icon.tsx`, `opengraph-image.tsx`, `sitemap.ts` and `robots.ts`. These routes are dynamic by default and block the export |
+
+`NEXT_PUBLIC_SITE_URL` is set by the workflow from the repository owner, so
+canonical URLs, Open Graph tags and the sitemap stay correct even if you rename
+your account. Nothing to configure by hand.
+
+### Using a custom domain later
+
+Add a `CNAME` file to `public/` containing the domain, point the domain's DNS
+at GitHub Pages, then set the domain under Settings → Pages.
 
 ---
 
@@ -399,16 +425,18 @@ The portfolio only links out to them.
           ↓                         ↓
      Portfolio repo            Project repos
           ↓                         ↓
-        Vercel                Free hosting
+     GitHub Pages           Free hosting
           ↓                         ↓
-   yourname.vercel.app       Live applications
+  yourname.github.io        Live applications
 ```
 
-Not everything can run on Vercel. Pick per component:
+GitHub Pages only serves static files, so it can host this portfolio but not an
+application with a backend. Pick per component:
 
 | Component                   | Free option                        | Watch out for                          |
 | --------------------------- | ---------------------------------- | -------------------------------------- |
-| Next.js / static frontend   | Vercel Hobby, Cloudflare Pages     | —                                      |
+| Static site / export        | GitHub Pages, Cloudflare Pages     | No server-side rendering                |
+| Next.js needing a server    | Vercel Hobby, Netlify              | —                                      |
 | Node / NestJS / FastAPI API | Render free web service            | Sleeps after ~15 min idle              |
 | Python ML inference         | Hugging Face Spaces (CPU basic)    | Sleeps after ~48 h idle; CPU only      |
 | PostgreSQL                  | Neon, Supabase                     | Storage cap; Neon autosuspends         |
@@ -518,7 +546,7 @@ Content:
 - [ ] Add `startDate` / `endDate` / `location` to the Avivo AI role.
 - [ ] Optional: add a photo at `public/images/profile/avatar.jpg` and uncomment
       `avatar` in `profile.ts`. Without it the hero shows your initials.
-- [ ] Set `NEXT_PUBLIC_SITE_URL` in Vercel.
+- [ ] Confirm Settings → Pages → Source is **GitHub Actions**, not "Deploy from a branch".
 
 Technical:
 
