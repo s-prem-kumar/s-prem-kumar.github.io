@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 
+/** Required by `output: "export"` — emits a plain sitemap.xml at build time. */
+export const dynamic = "force-static";
+
 /**
  * Sitemap, generated from the project data — adding a project to
  * `src/data/projects.ts` puts it in the sitemap automatically.

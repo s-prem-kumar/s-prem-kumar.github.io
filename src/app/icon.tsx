@@ -9,6 +9,9 @@ import { profile } from "@/data/profile";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
+/** Required by `output: "export"` — see the note in opengraph-image.tsx. */
+export const dynamic = "force-static";
+
 export default function Icon() {
   const initials = profile.name
     .split(" ")

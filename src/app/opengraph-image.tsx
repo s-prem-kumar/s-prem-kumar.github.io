@@ -15,6 +15,12 @@ export const alt = `${profile.name} — ${profile.headline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/**
+ * Required by `output: "export"`. Generated-image routes are dynamic by
+ * default; this pins the card to build time so it ships as a plain PNG.
+ */
+export const dynamic = "force-static";
+
 export default function OpenGraphImage() {
   return new ImageResponse(
     (

@@ -1,0 +1,69 @@
+# Builds the static site and publishes it to GitHub Pages.
+#
+# One-time setup in the repository: Settings → Pages → Build and deployment →
+# Source → "GitHub Actions". Without that, this workflow runs but nothing is
+# served.
+#
+# After that, every push to main redeploys automatically.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you redeploy by hand from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# The minimum the deploy needs: read the code, write a Pages deployment, and
+# prove the build's identity to Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. A queued run waits rather than cancelling the one
+# in flight, so a half-published site can't be left live.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # `npm ci` installs exactly what package-lock.json pins, so a deploy can
+      # never quietly pick up a different dependency version than you tested.
+      - run: npm ci
+
+      - run: npm run lint
+
+      - name: Build static export
+        run: npm run build
+        env:
+          # Baked into canonical URLs, Open Graph tags and the sitemap at build
+          # time. `github.repository_owner` keeps this correct if you ever
+          # rename your GitHub account.
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io
+
+      - uses: actions/configure-pages@v5
+
+      # `out/` is where `output: "export"` writes the site.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

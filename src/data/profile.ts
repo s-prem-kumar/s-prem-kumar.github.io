@@ -39,11 +39,13 @@ export const profile: Profile = {
 
   resumeUrl: "/resume/resume.pdf",
 
-  // Update this once Vercel gives you your real deployment URL, or set
-  // NEXT_PUBLIC_SITE_URL in the Vercel dashboard to override it without a
-  // code change. It drives canonical URLs, Open Graph tags and the sitemap.
+  // Your GitHub Pages user site. This is derived from your GitHub *username* —
+  // the repository must be named exactly "<username>.github.io" for it to serve
+  // from the root. Change your username and this changes with it.
+  //
+  // Drives canonical URLs, Open Graph tags, the sitemap and the JSON-LD.
   siteUrl:
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://premkumar-portfolio.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://premkumar28504-boop.github.io",
 
   // Flip to false to hide the "Open to opportunities" badge in the hero.
   openToWork: true,
