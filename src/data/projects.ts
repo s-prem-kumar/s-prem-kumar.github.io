@@ -83,10 +83,20 @@ export const projects: Project[] = [
       "One-command local setup with Docker Compose — Postgres, API and frontend",
     ],
 
-    /* No `github` field, so no 💻 View source button renders — on the card or
-     * on the case study. Add the line back to bring it straight back:
-     *   github: "https://github.com/s-prem-kumar/cashpilot-",
-     */
+    /* ⚠️ THIS REPOSITORY IS CURRENTLY PRIVATE — the button 404s for visitors.
+     * -----------------------------------------------------------------------
+     * The URL is right: it's the repo's own git remote, carried over from the
+     * username rename (note the trailing hyphen in the name). But GitHub's API
+     * lists only one public repo on this account, and fetching the URL while
+     * logged out returns 404 — so anyone who isn't you sees a "not found" page.
+     *
+     * Fix it in 30 seconds:
+     *   github.com/s-prem-kumar/cashpilot- → Settings → General → scroll to
+     *   "Danger Zone" → Change repository visibility → Make public
+     *
+     * Until then, delete this line if you'd rather show no button than a
+     * broken one. */
+    github: "https://github.com/s-prem-kumar/cashpilot-",
 
     /* 🚀 Try Demo — a static, client-side replica that ships with this
      * portfolio. See src/demo/cashpilot/. No backend, no database, no real
