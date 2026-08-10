@@ -44,14 +44,6 @@ export const projects: Project[] = [
     sortKey: "2026-08",
     featured: true,
 
-    /* ⚠️ ONE THING TO CONFIRM BEFORE PUBLISHING
-     * -----------------------------------------
-     * The `github` URL below is taken from the repo's own git remote — note the
-     * trailing hyphen in the repository name. The button is dead for visitors
-     * if that repository is private. Open it in a logged-out browser window;
-     * if it 404s, either make it public or delete the `github` line until you
-     * do. The Try Demo button doesn't depend on it. */
-
     // "Live" because the demo below genuinely is — it ships as part of this
     // site. The full application isn't publicly deployed; that's stated plainly
     // in the deployment section rather than implied away by the badge.
@@ -91,7 +83,10 @@ export const projects: Project[] = [
       "One-command local setup with Docker Compose — Postgres, API and frontend",
     ],
 
-    github: "https://github.com/s-prem-kumar/cashpilot-",
+    /* No `github` field, so no 💻 View source button renders — on the card or
+     * on the case study. Add the line back to bring it straight back:
+     *   github: "https://github.com/s-prem-kumar/cashpilot-",
+     */
 
     /* 🚀 Try Demo — a static, client-side replica that ships with this
      * portfolio. See src/demo/cashpilot/. No backend, no database, no real
