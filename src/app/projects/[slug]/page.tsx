@@ -14,6 +14,7 @@ import {
   RocketIcon,
 } from "@/components/ui/Icons";
 import { QueryCheckerDemo } from "@/components/demos/QueryCheckerDemo";
+import { RagPipelineDemo } from "@/components/demos/RagPipelineDemo";
 import {
   getProjectBySlug,
   hasLiveDemo,
@@ -473,6 +474,8 @@ function InteractiveDemoBlock({ demo }: { demo: InteractiveDemo }) {
   switch (demo) {
     case "query-checker":
       return <QueryCheckerDemo />;
+    case "rag-pipeline":
+      return <RagPipelineDemo />;
   }
 }
 

@@ -327,12 +327,17 @@ export const projects: Project[] = [
     description:
       "A document question-answering tool that takes a PDF or a web link and turns it into something you can actually query. Content is extracted, chunked, and embedded for semantic search, so retrieval pulls the passages that are genuinely relevant rather than the ones that happen to share keywords. Generation runs locally through Ollama, which means documents never leave the machine.",
 
+    /* Read off app.py in the repository — every one of these is imported. */
     technologies: [
       "Python",
+      "Streamlit",
+      "LangChain",
+      "FAISS",
+      "HuggingFace Embeddings",
       "Ollama",
+      "Llama 3.2",
+      "PyPDF2",
       "RAG",
-      "Semantic Search",
-      "LangChain", // verify — listed in your LLM stack; confirm it's what you used here
     ],
 
     features: [
@@ -368,9 +373,14 @@ export const projects: Project[] = [
       "Running models locally with Ollama makes the cost and latency of every design decision immediately visible.",
     ],
 
+    github: "https://github.com/s-prem-kumar/LLM-based-Link-PDF-Reader",
+
+    /* Stands in for a hosted demo — see src/components/demos/RagPipelineDemo. */
+    interactiveDemo: "rag-pipeline",
+
     demoAvailable: false,
     demoNote:
-      "The project runs its language model locally through Ollama, which no free hosting tier can run as-is. A public demo is planned that swaps the local model for a hosted free-tier inference endpoint while keeping the same retrieval pipeline.",
+      "The pipeline runs a language model locally through Ollama and downloads a 90 MB embedding model on first use — neither fits a free hosting tier. Rather than fake it, the case study below lets you step through the retrieval pipeline with real questions and watch which chunks get picked, using the same chunk size, overlap and chain type as the code.",
   },
 
   /* ======================================================================== */

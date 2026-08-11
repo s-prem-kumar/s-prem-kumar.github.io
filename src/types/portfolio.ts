@@ -227,7 +227,7 @@ export interface ExternalLink {
  * screenshot, the visitor gets something they can actually click through. Each
  * value maps to a component in `src/components/demos/`.
  */
-export type InteractiveDemo = "query-checker";
+export type InteractiveDemo = "query-checker" | "rag-pipeline";
 
 export interface Project {
   /** URL segment: /projects/<slug>. Lowercase, hyphenated, must be unique. */
